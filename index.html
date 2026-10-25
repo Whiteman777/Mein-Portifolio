@@ -383,8 +383,10 @@
     font-size:inherit;
     width:100%;
     caret-color:var(--signal);
+    position:relative;
+    z-index:1;
   }
-  .term-body .ln .cmd::placeholder{color:var(--fog); opacity:.85;}
+  .term-body .ln .cmd::placeholder{color:transparent;}
   .term-body .ln.cmdline{
     display:flex;
     align-items:center;
@@ -402,6 +404,36 @@
     box-shadow:0 0 0 3px rgba(94,234,212,0.08), 0 0 18px -8px rgba(94,234,212,0.5);
   }
   .term-body .ln.cmdline:focus-within .k{color:var(--paper);}
+  .term-body .ln.cmdline{overflow:hidden;}
+  .term-body .ghost{
+    position:absolute;
+    left:36px;
+    right:14px;
+    top:0;
+    bottom:0;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:0;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 10px,#000 calc(100% - 10px),transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 10px,#000 calc(100% - 10px),transparent);
+  }
+  .term-body .ghost-track{
+    display:flex;
+    white-space:nowrap;
+    animation:ghostSlide 16s linear infinite;
+  }
+  .term-body .ghost-track span{
+    color:var(--fog);
+    opacity:0.85;
+    margin-right:48px;
+  }
+  .term-body .cmdline.typing .ghost{display:none;}
+  @keyframes ghostSlide{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
 
   /* conic light sweep along card borders */
   @property --ang{
@@ -568,6 +600,7 @@
     .role-line.typing::after{display:none;}
     .aurora i{animation:none;}
     .edu-card::before, .contact-form::before{animation:none;}
+    .term-body .ghost-track{animation:none;}
     #fx, #cursor, .rain{display:none;}
     .hudbar{display:none;}
   }
@@ -1880,20 +1913,30 @@
       inp.autocomplete = 'off';
       inp.placeholder = "type 'help' and press enter";
       line.appendChild(inp);
+      const ghost = document.createElement('span');
+      ghost.className = 'ghost';
+      ghost.setAttribute('aria-hidden', 'true');
+      ghost.innerHTML = '<span class="ghost-track">' +
+        '<span>' + inp.placeholder + '</span><span>' + inp.placeholder + '</span>' +
+        '</span>';
+      line.appendChild(ghost);
       body.appendChild(line);
       const termBox = document.querySelector('.term');
       const DEFAULT_PLACEHOLDER = "type 'help' and press enter";
       const resetTerm = () => {
         inp.value = '';
         inp.placeholder = DEFAULT_PLACEHOLDER;
+        line.classList.remove('typing');
         body.querySelectorAll('.ln.dyn').forEach(l => l.remove());
         termBox.classList.remove('used');
       };
       line.addEventListener('click', () => inp.focus());
+      inp.addEventListener('input', () => line.classList.toggle('typing', inp.value.length > 0));
       inp.addEventListener('keydown', e => {
         if (e.key !== 'Enter') return;
         const raw = inp.value.trim().toLowerCase();
         inp.value = '';
+        line.classList.remove('typing');
         if (!raw) return;
         termBox.classList.add('used');
         const echo = document.createElement('div');

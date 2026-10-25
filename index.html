@@ -636,7 +636,32 @@
     padding-top:2px;
   }
   .project-index::before{content:'# '; opacity:0.55;}
-  .project:hover{background:rgba(94,234,212,0.03); box-shadow:inset 2px 0 0 var(--signal);}
+
+  /* hover edge bar (separate from the card content, no overlap) */
+  .project{
+    padding-left:18px;
+  }
+  .project::before{
+    content:'';
+    position:absolute;
+    left:0;
+    top:8px;
+    bottom:8px;
+    width:2px;
+    background:var(--signal);
+    box-shadow:0 0 10px rgba(94,234,212,0.6);
+    opacity:0;
+    transform:scaleY(0.4);
+    transform-origin:top;
+    transition:opacity .25s ease, transform .25s ease;
+    pointer-events:none;
+  }
+  .project:hover::before{
+    opacity:1;
+    transform:scaleY(1);
+  }
+
+  .project:hover{background:rgba(94,234,212,0.03);}
   .project-name{
     font-size:1.3rem;
     margin-bottom:10px;

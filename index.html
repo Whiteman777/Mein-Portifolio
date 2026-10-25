@@ -501,7 +501,6 @@
     .hero-name, .role-line, .hero-desc, .hero-cta, .term{animation:none; opacity:1;}
     .brand .dot{animation:none;}
     .reveal, .skill-group .pill{opacity:1; transform:none; transition:none;}
-    .reveal{filter:none;}
     .lang-bar i{transition:none;}
     .term-body .ln{opacity:1; animation:none;}
     .term-bar span{animation:none; opacity:1;}
@@ -901,10 +900,9 @@
 
     .reveal{
       opacity:0;
-      transform:translateY(18px);
-      transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1), letter-spacing .7s cubic-bezier(.2,.7,.2,1);
+      transform:translateY(16px);
+      transition:opacity .45s cubic-bezier(.2,.7,.2,1), transform .45s cubic-bezier(.2,.7,.2,1);
       transition-delay:var(--d, 0ms);
-      will-change:opacity, transform;
     }
     .reveal.in{
       opacity:1;
@@ -980,7 +978,7 @@
     }
 
     .term.hud-glow{
-      animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards, hudGlow 5s ease-in-out 1.4s infinite;
+      animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;
     }
 
     /* drifting grid */
@@ -1007,7 +1005,6 @@
     }
     @keyframes spinCW{to{transform:rotate(360deg);}}
     @keyframes spinCCW{to{transform:rotate(-360deg);}}
-
     /* typewriter caret while JS types the role line */
     .role-line.typing::after{
       content:'';
@@ -1027,17 +1024,13 @@
     }
     .hero-name:hover{animation:rgbGlitch .4s steps(2,end) infinite;}
 
-    /* kickers bloom open while revealing */
-    .kicker.reveal{letter-spacing:0.4em;}
-    .kicker.reveal.in{letter-spacing:0.06em;}
-
     /* timeline draws its spine asides revealing */
     .timeline.reveal{opacity:0; transform:none;}
     .timeline.reveal.in{opacity:1; transform:none;}
     .timeline.reveal::before{
       transform:scaleY(0);
       transform-origin:top;
-      transition:transform 1s cubic-bezier(.2,.7,.2,1) .2s;
+      transition:transform .8s cubic-bezier(.2,.7,.2,1) .05s;
     }
     .timeline.reveal.in::before{transform:scaleY(1);}
 
@@ -1045,22 +1038,25 @@
     .contact-list > *{
       opacity:0;
       transform:translateX(22px);
-      transition:opacity .6s cubic-bezier(.2,.7,.2,1), transform .6s cubic-bezier(.2,.7,.2,1);
+      transition:opacity .45s cubic-bezier(.2,.7,.2,1), transform .45s cubic-bezier(.2,.7,.2,1);
       transition-delay:var(--d, 0ms);
     }
     .contact-list.in > *{
       opacity:1;
       transform:translateX(0);
+      transition:opacity .45s cubic-bezier(.2,.7,.2,1), transform .45s cubic-bezier(.2,.7,.2,1), color .2s ease, border-color .2s ease;
+      transition-delay:0s;
     }
 
     /* project cards lift on hover once revealed */
     .project{
-      transition:opacity .7s cubic-bezier(.2,.7,.2,1) var(--d,0ms),
-                 transform .7s cubic-bezier(.2,.7,.2,1) var(--d,0ms),
-                 background .25s ease 0s,
-                 box-shadow .25s ease 0s;
+      transition:opacity .45s cubic-bezier(.2,.7,.2,1) var(--d,0ms),
+                 transform .45s cubic-bezier(.2,.7,.2,1) var(--d,0ms),
+                 background .2s ease 0s,
+                 box-shadow .2s ease 0s;
     }
     a.project:hover{transform:translateY(-3px);}
+    .project.in{transition:transform .22s ease, background .2s ease, box-shadow .2s ease;}
     .stack span{transition:box-shadow .25s ease;}
 
     /* university logo reacts on card hover */
@@ -1080,16 +1076,8 @@
     .aurora i:nth-child(2){animation:auroraB 34s ease-in-out infinite alternate;}
     @keyframes auroraA{to{transform:translate3d(12vmax,10vmax,0) scale(1.18);}}
     @keyframes auroraB{to{transform:translate3d(-10vmax,-12vmax,0) scale(1.22);}}
-
-    /* blur-in on reveal */
-    .reveal{filter:blur(7px);}
-    .reveal.in{filter:blur(0);}
   }
-    @keyframes hudGlow{
-      0%,100%{box-shadow:0 0 0 1px rgba(94,234,212,0.05), 0 0 42px -20px rgba(94,234,212,0.4), 0 30px 60px -30px rgba(0,0,0,0.7);}
-      50%{box-shadow:0 0 0 1px rgba(94,234,212,0.1), 0 0 58px -18px rgba(94,234,212,0.55), 0 30px 60px -30px rgba(0,0,0,0.7);}
-    }
-  }</style>
+</style>
 </head>
 <body>
 
@@ -1490,11 +1478,11 @@
         [...c.querySelectorAll(itemSelector)].forEach((el, i) => el.style.setProperty('--d', Math.min(i * step, cap) + 'ms'));
       });
     };
-    stagger('.skill-group', '.pills .pill', 45, 360);
-    stagger('.facts', '.fact', 70, 350);
-    stagger('.timeline', '.tl-item', 90, 450);
-    stagger('#certs .wrap > div', '.cert', 80, 320);
-    stagger('.contact-list', ':scope > *', 60, 300);
+    stagger('.skill-group', '.pills .pill', 30, 240);
+    stagger('.facts', '.fact', 50, 240);
+    stagger('.timeline', '.tl-item', 65, 300);
+    stagger('#certs .wrap > div', '.cert', 55, 240);
+    stagger('.contact-list', ':scope > *', 45, 240);
 
     /* typewriter for the role line */
     const role = document.querySelector('.role-line');
@@ -1547,7 +1535,7 @@
             io.unobserve(e.target);
           }
         });
-      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.05, rootMargin: '0px 0px 90px 0px' });
 
       document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     } else {
@@ -1568,7 +1556,7 @@
         fx.width = w * dpr; fx.height = h * dpr;
         fx.style.width = w + 'px'; fx.style.height = h + 'px';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        dots = Array.from({ length: 46 }, () => ({
+        dots = Array.from({ length: 28 }, () => ({
           x: Math.random() * w, y: Math.random() * h,
           r: 0.6 + Math.random() * 1.6,
           s: 0.15 + Math.random() * 0.35,
@@ -1624,10 +1612,10 @@
       };
       rresize();
       addEventListener('resize', rresize);
-      let rRaf = null, rlast = 0;
+      let rRaf = null, rlast = 0, rainVisible = true;
       const rdraw = ts => {
         rRaf = requestAnimationFrame(rdraw);
-        if (ts - rlast < 50) return;
+        if (ts - rlast < 70 || !rainVisible) return;
         rlast = ts;
         rctx.clearRect(0, 0, rw, rh);
         rctx.font = '11px JetBrains Mono, monospace';
@@ -1643,6 +1631,10 @@
         if (document.hidden) { cancelAnimationFrame(rRaf); rRaf = null; }
         else if (!rRaf) rRaf = requestAnimationFrame(rdraw);
       });
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(es => { rainVisible = es[0].isIntersecting; }, { threshold: 0 })
+          .observe(document.querySelector('.term'));
+      }
     }
 
     if (matchMedia('(pointer: fine)').matches) {
@@ -1703,7 +1695,7 @@
         src.forEach(node => {
           const target = [...node.textContent];
           const start = performance.now();
-          const dur = 750;
+          const dur = 480;
           const step = now => {
             const p = Math.min(1, (now - start) / dur);
             const solved = Math.floor(target.length * p);

@@ -1886,7 +1886,7 @@
       const resetTerm = () => {
         inp.value = '';
         inp.placeholder = DEFAULT_PLACEHOLDER;
-        body.querySelectorAll('.ln:not(:last-child)').forEach(l => l.remove());
+        body.querySelectorAll('.ln.dyn').forEach(l => l.remove());
         termBox.classList.remove('used');
       };
       line.addEventListener('click', () => inp.focus());
@@ -1897,15 +1897,15 @@
         if (!raw) return;
         termBox.classList.add('used');
         const echo = document.createElement('div');
-        echo.className = 'ln';
+        echo.className = 'ln dyn';
         echo.innerHTML = '<span class="k">$ ' + raw.replace(/[<>&]/g, '') + '</span>';
         body.insertBefore(echo, line);
         if (raw === 'clear') {
-          body.querySelectorAll('.ln:not(:last-child)').forEach(l => l.remove());
+          body.querySelectorAll('.ln.dyn').forEach(l => l.remove());
           return;
         }
         const out = document.createElement('div');
-        out.className = 'ln';
+        out.className = 'ln dyn';
         out.style.paddingLeft = '18px';
         out.innerHTML = '<span class="v">' + (CMD[raw] || 'command not found: ' + raw.replace(/[<>&]/g, '') + " — try 'help'") + '</span>';
         body.insertBefore(out, line);

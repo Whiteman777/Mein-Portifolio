@@ -752,6 +752,25 @@
     border-radius:var(--radius);
     text-transform:lowercase;
   }
+  .meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:12px;
+    align-items:center;
+  }
+  .flag{
+    font-family:var(--mono);
+    font-size:0.68rem;
+    letter-spacing:0.08em;
+    text-transform:lowercase;
+    padding:3px 9px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    color:var(--fog);
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .project:hover .flag{color:var(--signal); border-color:rgba(94,234,212,0.3);}
 
 
   /* ---------- TIMELINE (experience + education) ---------- */
@@ -1397,6 +1416,7 @@
         <div class="project-name">DecadeDash</div>
         <p class="project-desc">A 1950s–2020s themed trivia quiz app with configurable difficulty and timer, tap-to-answer cards with instant feedback, tracked hints, and a score plus per-question review results screen.</p>
         <div class="stack"><span>Flutter</span><span>Dart</span></div>
+        <div class="meta"><span class="flag">solo</span></div>
       </div>
     </a>
 
@@ -1406,6 +1426,7 @@
         <div class="project-name">Detro</div>
         <p class="project-desc">A Cairo Metro route planner with the same station exclusion across both pickers, a fewest-stops / nearest-first toggle, fuzzy station search, and a Trip summary.</p>
         <div class="stack"><span>Flutter</span><span>Dart</span></div>
+        <div class="meta"><span class="flag">solo</span></div>
       </div>
     </a>
 
@@ -1415,6 +1436,7 @@
         <div class="project-name">RECO</div>
         <p class="project-desc">A full-stack intelligent e-commerce platform and custom recommendation engine built with Spring Boot, PostgreSQL, and JavaScript.</p>
         <div class="stack"><span>Spring Boot</span><span>PostgreSQL</span><span>JavaScript</span></div>
+        <div class="meta"><span class="flag">team</span></div>
       </div>
     </a>
 
@@ -1424,6 +1446,7 @@
         <div class="project-name">Eco-Dispose</div>
         <p class="project-desc">A full-stack electronic waste management and recycling application built with Vue.js, SQLAlchemy, and Flask.</p>
         <div class="stack"><span>Vue.js</span><span>SQLAlchemy</span><span>Flask</span></div>
+        <div class="meta"><span class="flag">team</span></div>
       </div>
     </a>
 
@@ -1433,6 +1456,7 @@
         <div class="project-name">Reservita</div>
         <p class="project-desc">A full-stack event ticketing platform with intelligent seat selection, QR code verification, and real-time analytics. Built with JavaScript, FastAPI, and SQLAlchemy.</p>
         <div class="stack"><span>JavaScript</span><span>FastAPI</span><span>SQLAlchemy</span></div>
+        <div class="meta"><span class="flag">team</span></div>
       </div>
     </a>
 
@@ -1442,6 +1466,7 @@
         <div class="project-name">Student-Depression</div>
         <p class="project-desc">Analyzing student data to extract insights, with data preprocessing, visualization techniques, and model training.</p>
         <div class="stack"><span>Pandas</span><span>Matplotlib</span><span>Seaborn</span></div>
+        <div class="meta"><span class="flag">solo</span></div>
       </div>
     </div>
   </div>

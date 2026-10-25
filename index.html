@@ -378,6 +378,11 @@
   @media (prefers-reduced-motion: reduce){
     .hero-name, .role-line, .hero-desc, .hero-cta, .term{animation:none; opacity:1;}
     .brand .dot{animation:none;}
+    .reveal, .skill-group .pill{opacity:1; transform:none; transition:none;}
+    .lang-bar i{transition:none;}
+    .term-body .ln{opacity:1; animation:none;}
+    .term-bar span{animation:none; opacity:1;}
+    .btn::after{display:none;}
   }
 
   /* ---------- ABOUT ---------- */
@@ -747,7 +752,108 @@
   ::-webkit-scrollbar-track{background:var(--ink);}
   ::-webkit-scrollbar-thumb{background:var(--ink-3); border:2px solid var(--ink); border-radius:6px;}
   ::-webkit-scrollbar-thumb:hover{background:var(--line);}
-</style>
+
+  /* ---------- MOTION ---------- */
+  @media (prefers-reduced-motion: no-preference){
+    #progress{
+      position:fixed;
+      top:0; left:0; right:0;
+      height:2px;
+      z-index:110;
+      background:linear-gradient(90deg, rgba(94,234,212,0.4), var(--signal));
+      transform-origin:left;
+      transform:scaleX(0);
+      pointer-events:none;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+      transition-delay:var(--d, 0ms);
+      will-change:opacity, transform;
+    }
+    .reveal.in{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .skill-group .pill{
+      opacity:0;
+      transform:translateY(10px) scale(0.98);
+      transition:opacity .5s cubic-bezier(.2,.7,.2,1), transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .2s ease, border-color .2s ease, color .2s ease;
+      transition-delay:var(--d, 0ms);
+    }
+    .skill-group.in .pill{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+
+    .lang-bar i{
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform 1s cubic-bezier(.2,.7,.2,1) .25s, box-shadow .2s ease;
+    }
+    .lang-row.in .lang-bar i{
+      transform:scaleX(1);
+    }
+
+    .term-body .ln{
+      opacity:0;
+      animation:lnIn .5s cubic-bezier(.2,.7,.2,1) forwards;
+    }
+    .term-body .ln:nth-child(1){animation-delay:.55s;}
+    .term-body .ln:nth-child(2){animation-delay:.72s;}
+    .term-body .ln:nth-child(3){animation-delay:.89s;}
+    .term-body .ln:nth-child(4){animation-delay:1.06s;}
+    .term-body .ln:nth-child(5){animation-delay:1.23s;}
+    .term-body .ln:nth-child(6){animation-delay:1.40s;}
+    .term-body .ln:nth-child(7){animation-delay:1.57s;}
+    @keyframes lnIn{
+      from{opacity:0; transform:translateX(-8px);}
+      to{opacity:1; transform:translateX(0);}
+    }
+
+    .term-bar span{
+      animation:dotPulse 3.6s ease-in-out infinite;
+    }
+    .term-bar span:nth-child(2){animation-delay:1.2s;}
+    .term-bar span:nth-child(3){animation-delay:2.4s;}
+    @keyframes dotPulse{
+      0%,100%{opacity:1; box-shadow:0 0 0 rgba(94,234,212,0);}
+      50%{opacity:0.45; box-shadow:0 0 8px rgba(94,234,212,0.5);}
+    }
+
+    .btn{
+      position:relative;
+      overflow:hidden;
+    }
+    .btn::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+      transform:translateX(-130%);
+      transition:transform .6s ease;
+      pointer-events:none;
+    }
+    .btn:hover::after{transform:translateX(130%);}
+
+    .project{
+      transition:background .25s ease, box-shadow .25s ease;
+    }
+    .project:hover .stack span{
+      box-shadow:0 0 14px -7px rgba(94,234,212,0.6);
+    }
+
+    .term.hud-glow{
+      animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards, hudGlow 5s ease-in-out 1.4s infinite;
+    }
+    @keyframes hudGlow{
+      0%,100%{box-shadow:0 0 0 1px rgba(94,234,212,0.05), 0 0 42px -20px rgba(94,234,212,0.4), 0 30px 60px -30px rgba(0,0,0,0.7);}
+      50%{box-shadow:0 0 0 1px rgba(94,234,212,0.1), 0 0 58px -18px rgba(94,234,212,0.55), 0 30px 60px -30px rgba(0,0,0,0.7);}
+    }
+  }</style>
 </head>
 <body>
 
@@ -784,7 +890,7 @@
       </div>
     </div>
 
-    <div class="term">
+    <div class="term hud-glow">
       <div class="term-bar">
         <span></span><span></span><span></span>
         <div class="term-title">status.sh</div>
@@ -1117,6 +1223,50 @@
   const photoImg = photo.querySelector('img');
   if (photoImg.complete && photoImg.naturalWidth > 0) photo.classList.add('has-img');
   photoImg.addEventListener('load', () => photo.classList.add('has-img'));
+
+  /* ---------- MOTION ---------- */
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduce) {
+    const progress = document.createElement('div');
+    progress.id = 'progress';
+    document.body.appendChild(progress);
+    let raf = null;
+    const bar = () => {
+      const h = document.documentElement;
+      const max = h.scrollHeight - h.clientHeight;
+      progress.style.transform = 'scaleX(' + (max ? h.scrollTop / max : 1) + ')';
+    };
+    addEventListener('scroll', () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => { raf = null; bar(); });
+    }, { passive: true });
+    bar();
+
+    const sel = '.kicker, .section-title, .skill-group, .project, .tl-item, .edu-card, .cert, .lang-row, .contact-wrap > *, .contact-form, .fact';
+    document.querySelectorAll(sel).forEach(el => el.classList.add('reveal'));
+
+    const stagger = (containerSelector, itemSelector, step, cap) => {
+      document.querySelectorAll(containerSelector).forEach(c => {
+        [...c.querySelectorAll(itemSelector)].forEach((el, i) => el.style.setProperty('--d', Math.min(i * step, cap) + 'ms'));
+      });
+    };
+    stagger('.skill-group', '.pills .pill', 45, 360);
+    stagger('.facts', '.fact', 70, 350);
+    stagger('.timeline', '.tl-item', 90, 450);
+    stagger('#certs .wrap > div', '.cert', 80, 320);
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }
 </script>
 
 </body>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://whiteman777.github.io/Mein-Portifolio/sitemap.xml

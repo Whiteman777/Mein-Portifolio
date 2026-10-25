@@ -4,6 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Youssef Waleed — App &amp; Backend Developer</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230A0E1A'/%3E%3Crect x='2' y='2' width='60' height='60' rx='9' fill='none' stroke='%235EEAD4' stroke-opacity='0.5' stroke-width='2'/%3E%3Ctext x='32' y='43' font-family='monospace' font-size='26' font-weight='700' text-anchor='middle' fill='%235EEAD4'%3EYW%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Portfolio of Youssef Waleed Mohamed — App & Backend developer in Cairo. Flutter, Spring Boot, FastAPI, PostgreSQL.">
+<meta property="og:title" content="Youssef Waleed — App &amp; Backend Developer">
+<meta property="og:description" content="Flutter · Spring Boot · FastAPI · PostgreSQL — cross-platform apps and backend systems, from a Linux/Android ROM background.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://whiteman777.github.io/Mein-Portifolio/">
+<meta property="og:image" content="https://whiteman777.github.io/Mein-Portifolio/assets/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Youssef Waleed — App &amp; Backend Developer">
+<meta name="twitter:description" content="Flutter · Spring Boot · FastAPI · PostgreSQL.">
+<meta name="twitter:image" content="https://whiteman777.github.io/Mein-Portifolio/assets/og-cover.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -295,6 +306,43 @@
     display:flex;
     gap:14px;
     flex-wrap:wrap;
+  }
+
+  .featured{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    border:1px solid var(--line);
+    border-left:2px solid var(--signal);
+    background:var(--ink-2);
+    padding:14px 18px;
+    margin-top:26px;
+    border-radius:var(--radius);
+    max-width:460px;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .featured:hover{
+    border-color:rgba(94,234,212,0.45);
+    box-shadow:0 0 24px -12px rgba(94,234,212,0.5);
+  }
+  .feat-kicker{
+    font-family:var(--mono);
+    font-size:0.62rem;
+    letter-spacing:0.1em;
+    color:var(--signal);
+    text-transform:lowercase;
+    white-space:nowrap;
+  }
+  .feat-name{
+    font-family:'Space Grotesk', sans-serif;
+    font-size:1.05rem;
+    color:var(--paper);
+    margin-bottom:2px;
+  }
+  .featured:hover .feat-name{color:var(--signal);}
+  .feat-desc{
+    font-size:0.82rem;
+    color:var(--fog);
   }
 
   .btn{
@@ -691,6 +739,38 @@
     border-radius:var(--radius);
     text-transform:lowercase;
   }
+  .meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:14px;
+    align-items:center;
+  }
+  .flag{
+    font-family:var(--mono);
+    font-size:0.66rem;
+    letter-spacing:0.08em;
+    text-transform:lowercase;
+    padding:3px 8px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    color:var(--fog);
+  }
+  .flag.status{color:var(--signal); border-color:rgba(94,234,212,0.35); background:rgba(94,234,212,0.06);}
+  .flag.wip{color:var(--ember); border-color:rgba(242,153,74,0.4);}
+  .project-live{
+    font-family:var(--mono);
+    font-size:0.68rem;
+    letter-spacing:0.06em;
+    text-transform:lowercase;
+    color:var(--signal);
+    border:1px dashed rgba(94,234,212,0.35);
+    border-radius:var(--radius);
+    padding:3px 8px;
+    cursor:pointer;
+    transition:background .2s ease, box-shadow .2s ease;
+  }
+  .project-live:hover{background:rgba(94,234,212,0.08); box-shadow:0 0 14px -6px rgba(94,234,212,0.65);}
 
   /* ---------- TIMELINE (experience + education) ---------- */
 
@@ -1163,7 +1243,16 @@
       <div class="hero-cta">
         <a href="#projects" class="btn btn-solid">View projects</a>
         <a href="#contact" class="btn btn-outline">Get in touch</a>
+        <a href="assets/youssef-cv.pdf" download="youssef-waleed-cv.pdf" class="btn btn-outline">Download CV</a>
       </div>
+
+      <a class="featured" href="https://github.com/AhmedLouay-coder21/Reco" target="_blank" rel="noopener noreferrer">
+        <span class="feat-kicker">$ flagship</span>
+        <div>
+          <div class="feat-name">RECO <span aria-hidden="true">&rarr;</span></div>
+          <div class="feat-desc">full-stack e-commerce + recommendation engine</div>
+        </div>
+      </a>
     </div>
 
     <div class="term hud-glow">
@@ -1306,6 +1395,7 @@
         <div class="project-name">DecadeDash</div>
         <p class="project-desc">A 1950s–2020s themed trivia quiz app with configurable difficulty and timer, tap-to-answer cards with instant feedback, tracked hints, and a score plus per-question review results screen.</p>
         <div class="stack"><span>Flutter</span><span>Dart</span></div>
+      <div class="meta"><span class="flag">solo</span><span class="flag status">shipped</span><span class="project-live" data-src="https://whiteman777.github.io/Decade-Dash/" role="link" tabindex="0">live &#8599;</span></div>
       </div>
     </a>
 
@@ -1315,6 +1405,7 @@
         <div class="project-name">Detro</div>
         <p class="project-desc">A Cairo Metro route planner with the same station exclusion across both pickers, a fewest-stops / nearest-first toggle, fuzzy station search, and a Trip summary.</p>
         <div class="stack"><span>Flutter</span><span>Dart</span></div>
+      <div class="meta"><span class="flag">solo</span><span class="flag status">shipped</span><span class="project-live" data-src="https://whiteman777.github.io/Detro/" role="link" tabindex="0">live &#8599;</span></div>
       </div>
     </a>
 
@@ -1324,6 +1415,7 @@
         <div class="project-name">RECO</div>
         <p class="project-desc">A full-stack intelligent e-commerce platform and custom recommendation engine built with Spring Boot, PostgreSQL, and JavaScript.</p>
         <div class="stack"><span>Spring Boot</span><span>PostgreSQL</span><span>JavaScript</span></div>
+      <div class="meta"><span class="flag">team</span><span class="flag status">shipped</span></div>
       </div>
     </a>
 
@@ -1333,6 +1425,7 @@
         <div class="project-name">Eco-Dispose</div>
         <p class="project-desc">A full-stack electronic waste management and recycling application built with Vue.js, SQLAlchemy, and Flask.</p>
         <div class="stack"><span>Vue.js</span><span>SQLAlchemy</span><span>Flask</span></div>
+      <div class="meta"><span class="flag">team</span><span class="flag status">shipped</span></div>
       </div>
     </a>
 
@@ -1342,6 +1435,7 @@
         <div class="project-name">Reservita</div>
         <p class="project-desc">A full-stack event ticketing platform with intelligent seat selection, QR code verification, and real-time analytics. Built with JavaScript, FastAPI, and SQLAlchemy.</p>
         <div class="stack"><span>JavaScript</span><span>FastAPI</span><span>SQLAlchemy</span></div>
+      <div class="meta"><span class="flag">team</span><span class="flag status">shipped</span></div>
       </div>
     </a>
 
@@ -1351,6 +1445,7 @@
         <div class="project-name">Student-Depression</div>
         <p class="project-desc">Analyzing student data to extract insights, with data preprocessing, visualization techniques, and model training.</p>
         <div class="stack"><span>Pandas</span><span>Matplotlib</span><span>Seaborn</span></div>
+      <div class="meta"><span class="flag">solo</span><span class="flag status">shipped</span></div>
       </div>
     </div>
   </div>
@@ -1364,17 +1459,17 @@
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-role">Cold Calling Agent</div>
-        <div class="tl-org">AK Callers</div>
+        <div class="tl-org">AK Callers · 2023 · Cairo</div>
         <div class="tl-desc">Worked as a Real Estate Cold Calling Agent.</div>
       </div>
       <div class="tl-item">
         <div class="tl-role">Cold Calling Agent</div>
-        <div class="tl-org">Dial Force</div>
+        <div class="tl-org">Dial Force · 2024 · Cairo</div>
         <div class="tl-desc">Worked as a Real Estate Cold Calling Agent.</div>
       </div>
       <div class="tl-item">
         <div class="tl-role">Cold Calling Agent</div>
-        <div class="tl-org">Lead Gen</div>
+        <div class="tl-org">Lead Gen · 2024 · Cairo</div>
         <div class="tl-desc">Worked as a Real Estate Cold Calling Agent.</div>
       </div>
     </div>
@@ -1454,7 +1549,7 @@
       </div>
       <div class="contact-list">
         <a href="mailto:youssefwalid707@gmail.com" class="item"><span>Email</span><span>youssefwalid707@gmail.com</span></a>
-        <a href="tel:01090998321" class="item"><span>Phone</span><span>01090998321</span></a>
+        <a href="tel:+201090998321" class="item"><span>Phone</span><span>+20 109 099 8321</span></a>
         <a href="https://www.linkedin.com/in/youssef-waleed-9161462b7" class="item" target="_blank" rel="noopener noreferrer"><span>LinkedIn</span><span>Youssef Waleed</span></a>
         <a href="https://github.com/Whiteman777" class="item" target="_blank" rel="noopener noreferrer"><span>GitHub</span><span>Whiteman777</span></a>
         <div class="item"><span>Location</span><span>Cairo, Egypt</span></div>
@@ -1494,6 +1589,18 @@
   const links = document.getElementById('navLinks');
   toggle.addEventListener('click', () => links.classList.toggle('open'));
   links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  /* demo chips inside project cards (anchors would nest inside the card link) */
+  document.querySelectorAll('.project-live[data-src]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      window.open(el.dataset.src, '_blank', 'noopener');
+    });
+    el.addEventListener('keydown', e => {
+      if (e.key === 'Enter') window.open(el.dataset.src, '_blank', 'noopener');
+    });
+  });
 
   const photo = document.querySelector('.hero-photo');
   const photoImg = photo.querySelector('img');

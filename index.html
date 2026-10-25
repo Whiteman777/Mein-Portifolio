@@ -358,9 +358,9 @@
     font-family:var(--mono);
   }
   .term-body{
-    padding:22px 20px 26px;
+    padding:26px 24px 30px;
     font-family:var(--mono);
-    font-size:0.84rem;
+    font-size:0.95rem;
     color:var(--fog);
     position:relative;
   }
@@ -384,7 +384,24 @@
     width:100%;
     caret-color:var(--signal);
   }
-  .term-body .ln .cmd::placeholder{color:var(--fog); opacity:.5;}
+  .term-body .ln .cmd::placeholder{color:var(--fog); opacity:.85;}
+  .term-body .ln.cmdline{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:18px;
+    padding:12px 14px;
+    background:var(--ink-3);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    cursor:text;
+    transition:border-color .2s ease, box-shadow .2s ease;
+  }
+  .term-body .ln.cmdline:focus-within{
+    border-color:rgba(94,234,212,0.55);
+    box-shadow:0 0 0 3px rgba(94,234,212,0.08), 0 0 18px -8px rgba(94,234,212,0.5);
+  }
+  .term-body .ln.cmdline:focus-within .k{color:var(--paper);}
 
   /* conic light sweep along card borders */
   @property --ang{
@@ -1855,13 +1872,13 @@
         contact:     'youssefwalid707@gmail.com, github.com/whiteman777'
       };
       const line = document.createElement('div');
-      line.className = 'ln';
+      line.className = 'ln cmdline';
       line.innerHTML = '<span class="k">$</span>';
       const inp = document.createElement('input');
       inp.className = 'cmd';
       inp.spellcheck = false;
       inp.autocomplete = 'off';
-      inp.placeholder = "type 'help'";
+      inp.placeholder = "type 'help' and press enter";
       line.appendChild(inp);
       body.appendChild(line);
       line.addEventListener('click', () => inp.focus());

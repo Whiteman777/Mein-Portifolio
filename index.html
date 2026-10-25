@@ -1881,12 +1881,21 @@
       inp.placeholder = "type 'help' and press enter";
       line.appendChild(inp);
       body.appendChild(line);
+      const termBox = document.querySelector('.term');
+      const DEFAULT_PLACEHOLDER = "type 'help' and press enter";
+      const resetTerm = () => {
+        inp.value = '';
+        inp.placeholder = DEFAULT_PLACEHOLDER;
+        body.querySelectorAll('.ln:not(:last-child)').forEach(l => l.remove());
+        termBox.classList.remove('used');
+      };
       line.addEventListener('click', () => inp.focus());
       inp.addEventListener('keydown', e => {
         if (e.key !== 'Enter') return;
         const raw = inp.value.trim().toLowerCase();
         inp.value = '';
         if (!raw) return;
+        termBox.classList.add('used');
         const echo = document.createElement('div');
         echo.className = 'ln';
         echo.innerHTML = '<span class="k">$ ' + raw.replace(/[<>&]/g, '') + '</span>';
@@ -1900,8 +1909,12 @@
         out.style.paddingLeft = '18px';
         out.innerHTML = '<span class="v">' + (CMD[raw] || 'command not found: ' + raw.replace(/[<>&]/g, '') + " — try 'help'") + '</span>';
         body.insertBefore(out, line);
-        const box = document.querySelector('.term');
-        box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        termBox.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      });
+
+      /* clicking anywhere outside the terminal resets it to its default state */
+      document.addEventListener('click', e => {
+        if (!termBox.contains(e.target) && (inp.value || termBox.classList.contains('used'))) resetTerm();
       });
     }
   }

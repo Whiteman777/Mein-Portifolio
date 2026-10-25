@@ -35,11 +35,12 @@ A local server is preferable, since the photo is loaded from a relative path and
 | `#hero`     | Name, role, photo, and the fake `status.sh` terminal panel        |
 | `#about`    | Short bio and a fact list (location, GPA, languages)              |
 | `#skills`   | Skill groups: Flutter, Backend, Database, Data Science, and more  |
+| `#soft-skills` | Communication, teamwork, and other non-technical strengths     |
 | `#projects` | Six selected projects with tech stacks                            |
 | `#experience` | Professional work history                                       |
 | `#education`  | Degree and GPA                                                  |
 | `#certs`    | Certifications and spoken languages                               |
-| `#contact`  | Email, phone, and location                                       |
+| `#contact`  | Email, phone, socials, and the contact form                      |
 
 ## Editing content
 
@@ -50,6 +51,14 @@ All copy lives as plain text inside `index.html`:
 - **Add a skill** — insert another `<span class="pill">` into the relevant `.pills` group.
 - **Change colors** — edit the CSS custom properties at the top of the `<style>` block (`--ink`, `--signal`, `--paper`, and friends).
 - **Swap the photo** — replace `assets/profile.jpg`, keeping the same filename. If the image is missing or fails to load, the site falls back to a "YW" monogram automatically.
+
+## Contact form
+
+The form in the contact section posts to [FormSubmit](https://formsubmit.co), which forwards submissions to `youssefwalid707@gmail.com` — no server or signup required.
+
+**First-time setup:** submit the form once yourself (from the deployed site, not `file://`). FormSubmit sends a confirmation email to that Gmail address; click the link inside, and all later submissions will be delivered.
+
+Spam protection is a hidden honeypot field plus `_captcha=false`. If you start getting spam, remove `_captcha` (or set it to `true`) to re-enable the CAPTCHA. To change the destination address, edit the `action` URL on the `<form>`.
 
 ## Deployment
 
